@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Javascript Test</title>
+<style type="text/css">
+	table{ border-collapse:collapse; text-align:  center;}
+	table th{ border:1px solid #ccc; padding:2px 5px;}
+	table td{ border:1px solid #ccc; padding:2px 5px;}
+	.MainForm{ margin: 0 auto; width: 1100px }
+	.MainForm h1{ font:bold 18px/22px arial; margin-top: 100px; }
+	#showinfo label{ font-weight:  bold; }
+	#showinfo label,#showinfo span{ display:  block; }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+</head>
+<body>
+<div class="MainForm">
+	
+	
+
+
+
+
+
+<script type="text/javascript">
+	var classA = function(){
+			this.attr1 = "Baba Clip services",
+			this.attr2= "babaji",
+			this.attr3="chals";
+			this.getAttr1=function(){
+				return this.attr1;
+			}
+			this.setAttr1 = function(elemt){
+				this.attr1 = elemt;
+			}
+
+	}
+	var setObj = new classA();	
+		console.log(setObj.attr2);
+		setObj.setAttr1('prem')
+		console.log(setObj.attr1);
+
+	var classB = function(){
+		this.name1 = 'rakesh',
+		this.homeaddress = 'New Delhi'
+	}
+	var classC = function(){
+		this.address = 'sector18'
+	}
+
+	classA.prototype= new classB();
+	classA.prototype= new classC();
+	
+
+
+	var boj1 = new classA();
+	var boj2 = new classB();
+	var boj3 = new classC();
+
+	console.log(boj1.address);
+	console.log(boj2.name1);
+	console.log(boj3.address);
+	console.log(boj2.homeaddress);
+
+</script>
+
+
+	<h1>Submit Employee Detais</h1>
+	<form>
+		<table>
+			<thead>
+				<th>Name</th>
+				<th>Emp Id</th>
+				<th>Desigination</th>
+				<th>Salary</th>	
+			</thead>
+			<tbody>
+				<tr>
+					<td><label>Name</label><input type="text" name="name" id="_name"></td>
+					<td><label>Emp Id</label><input type="text" name="empid" id="_impid"></td>
+					<td><label>Desigination</label><input type="text" name="desigtion" id="_designation"></td>
+					<td><label>Salary</label><input type="text" name="salary" id="_sallery"></td>
+					<td colspan="4" align="right"><input type="button" value="Get Detail" onclick="employeeDetail();"></td>
+				</tr>
+				<tr>
+					<td colspan="40" align="right">
+						<select name="employeeName" id="employee_name" onchange="showInfo(this)">
+							<option>select Detail</option>
+						</select>
+					</td>
+				</tr>
+				<tr id="showinfo" style="display:none;">
+					<td><label>Name</label><span id="s_name"></span></td>
+					<td><label>Emp Id</label><span id="s_id"></span></td>
+					<td><label>Desigination</label><span id="s_dis"></span></td>
+					<td><label>Salary</label><span id="s_sallery"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+</div>
+<script type="text/javascript">
+	var global = {};
+var employee = function(){
+    this.name = "";
+    this.empid = 0;
+    this.designation = "";
+    this.sallery = 0;
+    
+    this.insertGlobal = function(){                    
+        global[this.name]=this;
+    }
+    
+    this.setEmpInfo = function(obj){
+        this.name = obj.name;
+        this.empid = obj.empid;
+        this.designation = obj.designation;
+        this.sallery = obj.sallery;
+
+    };
+                
+}              
+
+function employeeDetail(){
+    var empObj = new employee();
+    var obj = {}; 
+    obj.name = document.getElementById('_name').value;
+    obj.empid = document.getElementById('_impid').value;
+    obj.designation = document.getElementById('_designation').value;
+    obj.sallery = document.getElementById('_sallery').value;
+
+    addDropdown(obj);
+
+    empObj.setEmpInfo(obj);           
+
+    empObj.insertGlobal(this); 
+                
+}
+function addDropdown(obj){
+    var drop = document.getElementById('employee_name');
+    var option = document.createElement('option');
+    option.text = obj.name;
+    option.value = obj.name;
+    drop.add(option);
+}
+
+function showInfo(x){
+    var obj = global[x.value];
+    document.getElementById('showinfo').style.display="block";
+    document.getElementById('s_name').innerHTML = obj.name;
+   document.getElementById('s_id').innerHTML = obj.empid;
+    document.getElementById('s_dis').innerHTML = obj.designation;
+    document.getElementById('s_sallery').innerHTML = obj.sallery;
+}
+
+
+
+</script>
+
+</body>
+</html>
